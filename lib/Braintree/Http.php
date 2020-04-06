@@ -197,6 +197,9 @@ class Http
             throw new Exception\Timeout();
         }
 
+        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+        $response = substr($response, $headerSize);
+
         curl_close($curl);
         if ($this->_config->sslOn() && $error_code == 35) {
             throw new Exception\SSLCertificate($error, $error_code);
