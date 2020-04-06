@@ -181,7 +181,17 @@ class Http
         $error_code = curl_errno($curl);
         $error = curl_error($curl);
 
-        $this->afterRequestDone($curl, $response);
+        $this->afterRequestDone(
+            $curl,
+            [
+                'method' => $httpVerb,
+                'url' => $url,
+                'header' => $headers,
+                'body' => $requestBody,
+                'file' => $file,
+            ],
+            $response
+        );
 
         if ($error_code == 28 && $httpStatus == 0) {
             throw new Exception\Timeout();
@@ -206,7 +216,7 @@ class Http
      * @param $curlHandler
      * @param $response
      */
-    protected function afterRequestDone($curlHandler, $response)
+    protected function afterRequestDone($curlHandler, array $request, $response)
     {
         // ..
     }
