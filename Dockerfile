@@ -1,5 +1,6 @@
 FROM debian:stretch
 
+
 RUN apt-get update
 RUN apt-get -y install gnupg curl wget
 
